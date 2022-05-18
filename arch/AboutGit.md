@@ -13,8 +13,8 @@ git init
 git add .
 # commit your changes
 git commit -m "<messages about this commit>"
-# push your changes t remote repo 
 
+# push your changes t remote repo 
 # firstly
 git remote add origin <your repo url>
 git push -u origin main

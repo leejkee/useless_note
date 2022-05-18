@@ -71,3 +71,30 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 ```
+
+## 使用zsh+p10k的方案，个人倾向于轻量，oh-my-zsh是很强大的zsh插件管理器
+
+### installation 
+```shell
+# themes
+sudo pacman -S zsh-theme-powerlevel10k
+# plugins
+sudo pacman -S zsh-autosuggestions zsh-syntax-highlighting zsh-completions
+```
+
+### configration
+#### 开启文件夹color
+```shell
+# in ~/.zhsrc
+alias ls='ls --color=auto'
+```
+
+#### 启用p10k主题和三个补全插件
+```shell
+# in ~/.zhsrc
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# 使用tab键显示命令的参数和作用
+autoload -Uz compinit && compinit
+```

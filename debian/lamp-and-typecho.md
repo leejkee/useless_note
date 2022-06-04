@@ -34,7 +34,7 @@ apt install mariadb-server
 ## 对数据库进行简单配置并为typecho创建一个管理用户和数据库
 ### 进行安全性设置
 ```shell
-mysql_sucure_installation
+mysql_secure_installation
 ```
 进入安全设置交互，并进行以下设置：  
 - 为root用户设置密码

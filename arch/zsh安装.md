@@ -64,7 +64,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
+# The following lines were added by compinstall3131
 zstyle :compinstall filename '/home/ljk/.zshrc'
 
 autoload -Uz compinit

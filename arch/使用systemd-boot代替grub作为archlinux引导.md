@@ -12,7 +12,8 @@ categories:
 ---
 
 # 使用archlinux自带的systemd-boot去引导系统开机
-注意：下面假定你的电脑已经使用 __grub__ 方案，那么如何替换成 __systemd——boot__ 是本文记录的主要内容。如果你恰好刚刚准备在虚拟机或者你的个人PC上安装Archlinux，那么本文也将作为可参考文章；如果你是linux新手，建议先尝试ubuntu，你将很平滑地从Windows过度到GNU/linux。
+注意：下面假定你的电脑已经使用 __grub__ 方案，那么如何替换成 __systemd——boot__ 是本文记录的主要内容。如果你恰好刚刚准备在虚拟机或者你的个人PC上安装Archlinux，那么本文也将作为可参考文章；如果你是linux新手，建议先尝试ubuntu，你将很平滑地从Windows过度到GNU/linux。   
+此外，使用gpt格式是必须的，因为需要磁盘唯一标识符uuid。
 
 ## 删除grub
 ```shell
@@ -65,7 +66,13 @@ initrd /initramfs-linux.img
 options root=PARTUUID=66276022-7f25-8a45-bb00-5f60abcd660a rw
 ```
 到此systemd-boot管理的引导方式配置结束。
+## 使用btrfs格式的arch.conf
+如果不使用ext4文件类型，使用btrfs类型，那么在最后的options行后面除了写上对应root目录的uuid之外，还需要指定子卷@。
+```shell
+options root=PARTUUID=<UUID> rootflags=subvol=@ rw
+```
 ## 疑难解答
+### boot目录下文件丢失
 如果不小心删去了boot分区的文件，那么会导致开机无法出现引导项，无法开机，需要使用livecd进入archiso，虽然这对arch新手不是很友好。
 将你之前安装arch的启动盘重新插入电脑的usb接口，然后按F12或者esc（不同厂商电脑不一样）选择u盘启动进入livecd，也就是你安装arch使用的哪个u盘的系统，里面包含很多工具，在联网后执行：  
 （虚拟机用户：关机后在开机下面的小三角展开选择 __打开电源进入固件__。选择包含IDE字样的选项即可进入。）
@@ -77,3 +84,6 @@ $ pacman -S linux #安装内核，会重新在/boot生成被删除的内核文�
 #如果你恰好没有安装intel-ucod，按照我的配置会报错，执行
 $ pacman -S intel-ucode
 ```
+### bootctl install提示未找到EFI分区
+这是因为没有设置EFI分区的type为EF00，推荐使用gdisk或者cgdisk进行设置
+在gdisk创建分区的时候会提示选择code，输入相应code即可。
